@@ -19,9 +19,9 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { margin: 0; min-height: 100vh; background: #d42621 url("images/fanshawe_wallpaper.jpg") center center / cover fixed; color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.55; }
-    button, input, textarea { font: inherit; }
-    button, a, input, textarea { outline-offset: 3px; }
-    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--red); }
+    button, input, select, textarea { font: inherit; }
+    button, a, input, select, textarea { outline-offset: 3px; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--red); }
     .layout { max-width: 1150px; margin: 45px auto 0; padding: 0 55px 55px; display: grid; grid-template-columns: 190px minmax(0, 790px); justify-content: space-between; gap: 55px; background: #fff; border-radius: 25px; }
     .sidebar { padding-top: 66px; }
     .sidebar-inner { position: sticky; top: 35px; }
@@ -48,11 +48,12 @@
     .section-head p { margin: 0; color: var(--muted); font-size: 13px; }
     .section-body { padding: 27px 32px 32px; }
     .field + .field { margin-top: 27px; padding-top: 25px; border-top: 1px solid #eee; }
+    .subfield-label { margin-top: 14px; }
     label.field-label, .field-title { display: block; margin-bottom: 4px; font-weight: 700; font-size: 14px; }
     .required { color: var(--red); }
     .hint { margin: 0 0 11px; color: var(--muted); font-size: 13px; line-height: 1.55; }
-    input[type="text"], textarea { width: 100%; border: 1px solid slategray; border-radius: 5px; background: #fff; color: var(--ink); padding: 12px 14px; transition: border-color .15s, box-shadow .15s; }
-    input[type="text"]:focus, textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(189, 25, 21, .15); outline: none; }
+    input[type="text"], select, textarea { width: 100%; border: 1px solid slategray; border-radius: 5px; background: #fff; color: var(--ink); padding: 12px 14px; transition: border-color .15s, box-shadow .15s; }
+    input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(189, 25, 21, .15); outline: none; }
     input::placeholder, textarea::placeholder { color: #707070; }
     textarea { min-height: 84px; resize: vertical; display: block; }
     .radio-list { display: grid; gap: 10px; }
@@ -139,23 +140,59 @@
             <p class="hint">For each item, tell us whether to include it and where it belongs. If source material is missing, say whether it may be drafted from the book or should be flagged for you.</p>
             <div class="field">
               <label class="field-label" for="outcomes">Learning Outcomes</label>
-              <p class="hint">For example, at the start of each chapter.</p>
-              <textarea id="outcomes" name="outcomes" placeholder="Share your preferences..."></textarea>
+              <p class="hint">Default: at the start of each chapter.</p>
+              <select id="outcomes" name="outcomes">
+                <option value="At the start of each chapter" selected>At the start of each chapter</option>
+                <option value="At the start of each section">At the start of each section</option>
+                <option value="In one book-wide list">In one book-wide list</option>
+                <option value="Do not include">Do not include</option>
+                <option value="Keep current arrangement">Keep current arrangement</option>
+                <option value="Discuss with technician">Discuss with technician</option>
+              </select>
             </div>
             <div class="field">
               <label class="field-label" for="terms">Key Terms and glossary</label>
-              <p class="hint">End of each chapter, individual sections, and/or a book glossary.</p>
-              <textarea id="terms" name="terms" placeholder="Share your preferences..."></textarea>
+              <p class="hint">Default: at the end of each chapter.</p>
+              <select id="terms" name="terms">
+                <option value="At the end of each chapter" selected>At the end of each chapter</option>
+                <option value="At the end of each section">At the end of each section</option>
+                <option value="In a book glossary">In a book glossary</option>
+                <option value="At the end of each chapter and in a book glossary">At the end of each chapter and in a book glossary</option>
+                <option value="Do not include">Do not include</option>
+                <option value="Keep current arrangement">Keep current arrangement</option>
+                <option value="Discuss with technician">Discuss with technician</option>
+              </select>
             </div>
             <div class="field">
               <label class="field-label" for="takeaways">Key Takeaways</label>
-              <p class="hint">Chapter summary, end of individual sections, or both.</p>
-              <textarea id="takeaways" name="takeaways" placeholder="Share your preferences..."></textarea>
+              <p class="hint">Default: in the chapter summary.</p>
+              <select id="takeaways" name="takeaways">
+                <option value="In the chapter summary" selected>In the chapter summary</option>
+                <option value="At the end of each section">At the end of each section</option>
+                <option value="In the chapter summary and at the end of each section">In the chapter summary and at the end of each section</option>
+                <option value="Do not include">Do not include</option>
+                <option value="Keep current arrangement">Keep current arrangement</option>
+                <option value="Discuss with technician">Discuss with technician</option>
+              </select>
             </div>
             <div class="field">
               <label class="field-label" for="examples">Examples and Exercises</label>
-              <p class="hint">Include placement and whether to leave empty boxes where content is missing.</p>
-              <textarea id="examples" name="examples" placeholder="Share your preferences..."></textarea>
+              <p class="hint">Default placement: surrounding each H5P activity.</p>
+              <select id="examples" name="examples">
+                <option value="Surround each H5P activity" selected>Surround each H5P activity</option>
+                <option value="Place with related content">Place with related content</option>
+                <option value="At the end of each chapter">At the end of each chapter</option>
+                <option value="Do not include">Do not include</option>
+                <option value="Keep current arrangement">Keep current arrangement</option>
+                <option value="Discuss with technician">Discuss with technician</option>
+              </select>
+              <label class="field-label subfield-label" for="examples-missing">When content is missing</label>
+              <select id="examples-missing" name="examples-missing">
+                <option value="">Select an option (optional)</option>
+                <option value="Leave empty boxes where content is missing">Leave empty boxes where content is missing</option>
+                <option value="Do not leave empty boxes where content is missing">Do not leave empty boxes where content is missing</option>
+                <option value="Discuss with technician">Discuss with technician</option>
+              </select>
             </div>
             <div class="field">
               <label class="field-label" for="other">Other recurring boxes or pages</label>
@@ -172,9 +209,9 @@
           </div>
           <div class="section-body">
             <div class="field-title" id="h5p-label">Choose one for the book’s interactive exercises.</div>
-            <p class="hint">You can leave this unanswered if you’re not sure yet.</p>
+            <p class="hint">Default: keep solutions in the text descriptions. You can change or clear this choice.</p>
             <div class="radio-list" role="radiogroup" aria-labelledby="h5p-label">
-              <label class="radio-option"><input type="radio" name="h5p" value="0"><span><strong>Keep solutions in the text descriptions</strong><small>Leave answers alongside the exercises.</small></span></label>
+              <label class="radio-option"><input type="radio" name="h5p" value="0" checked><span><strong>Keep solutions in the text descriptions</strong><small>Leave answers alongside the exercises. Default.</small></span></label>
               <label class="radio-option"><input type="radio" name="h5p" value="1"><span><strong>Move solutions to the end of each chapter</strong><small>Use a dedicated page in each chapter.</small></span></label>
               <label class="radio-option"><input type="radio" name="h5p" value="2"><span><strong>Move solutions to Back Matter</strong><small>Use one dedicated page at the end of the book.</small></span></label>
             </div>
@@ -190,13 +227,18 @@
           <div class="section-body">
             <div class="field">
               <label class="field-label" for="references">References</label>
-              <p class="hint">One page per chapter, one page in Back Matter, or keep the existing arrangement.</p>
-              <textarea id="references" name="references" placeholder="Share your preferences..."></textarea>
+              <p class="hint">Default: one page in Back Matter.</p>
+              <select id="references" name="references">
+                <option value="One page per chapter">One page per chapter</option>
+                <option value="One page in Back Matter" selected>One page in Back Matter</option>
+                <option value="Keep the existing arrangement">Keep the existing arrangement</option>
+                <option value="Discuss with technician">Discuss with technician</option>
+              </select>
             </div>
             <div class="field">
               <label class="field-label" for="audience">Audience and style</label>
-              <p class="hint">Any reading level, spelling, heading, caption, or credit conventions to follow.</p>
-              <textarea id="audience" name="audience" placeholder="Share your preferences..."></textarea>
+              <p class="hint">Default: post-secondary Canadian English. Edit if needed.</p>
+              <textarea id="audience" name="audience">Post-secondary Canadian English</textarea>
             </div>
             <div class="field">
               <label class="field-label" for="exceptions">Exceptions or author review</label>
@@ -270,7 +312,7 @@
         '- **Learning Outcomes** (for example, at the start of each chapter): ' + answer('outcomes'),
         '- **Key Terms and glossary** (end of each chapter, individual sections, and/or a book glossary): ' + answer('terms'),
         '- **Key Takeaways** (chapter summary, end of individual sections, or both): ' + answer('takeaways'),
-        '- **Examples and Exercises** (include placement and whether to leave empty boxes where content is missing): ' + answer('examples'),
+        '- **Examples and Exercises** (placement and missing content): Placement: ' + answer('examples') + (answer('examples-missing') ? '; ' + answer('examples-missing') : ''),
         '- **Other recurring boxes or pages** (for example, Knowledge Checks or chapter contents lists): ' + answer('other'),
         '',
         '## H5P solutions',
