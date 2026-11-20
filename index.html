@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d42621">
+  <title>Book preferences survey</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #202020;
+      --muted: #595959;
+      --line: #dedede;
+      --red: #bd1915;
+      --red-dark: #94120f;
+      --soft-red: #fbeae9;
+      --sans: Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-height: 100vh; background: #d42621 url("images/fanshawe_wallpaper.jpg") center center / cover fixed; color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.55; }
+    button, input, textarea { font: inherit; }
+    button, a, input, textarea { outline-offset: 3px; }
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--red); }
+    .layout { max-width: 1150px; margin: 45px auto 0; padding: 0 55px 55px; display: grid; grid-template-columns: 190px minmax(0, 790px); justify-content: space-between; gap: 55px; background: #fff; border-radius: 25px; }
+    .sidebar { padding-top: 66px; }
+    .sidebar-inner { position: sticky; top: 35px; }
+    .eyebrow { color: var(--red); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
+    .side-title { margin: 11px 0 22px; font-size: 20px; font-weight: 700; line-height: 1.25; }
+    .nav { display: grid; border-top: 1px solid var(--line); }
+    .nav a { display: flex; gap: 13px; padding: 14px 0; border-bottom: 1px solid var(--line); color: #444; text-decoration: none; font-size: 13px; }
+    .nav a:hover { color: var(--red); }
+    .nav-num { color: var(--red); font-size: 11px; font-weight: 700; }
+    .side-foot { margin-top: 33px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    main { min-width: 0; }
+    .hero { padding: 60px 0 39px; }
+    .hero .eyebrow { display: flex; align-items: center; gap: 9px; }
+    .hero .eyebrow::before { content: ""; width: 25px; height: 2px; background: var(--red); }
+    h1 { margin: 19px 0 15px; font-family: monospace, sans-serif; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; }
+    .hero p { max-width: 580px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
+    .intro-note { margin-top: 28px; display: flex; gap: 13px; align-items: flex-start; padding: 16px 19px; border: 1px solid #efc8c6; background: var(--soft-red); border-radius: 8px; color: #444; font-size: 13px; }
+    .intro-note svg { flex: 0 0 auto; margin-top: 2px; }
+    .intro-note strong { color: var(--ink); }
+    .section { scroll-margin-top: 25px; margin-bottom: 19px; background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+    .section-head { display: flex; gap: 17px; padding: 30px 32px 24px; border-bottom: 1px solid #eee; }
+    .section-number { flex: 0 0 auto; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--soft-red); color: var(--red); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    h2 { margin: 0 0 3px; font-size: 22px; line-height: 1.3; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 13px; }
+    .section-body { padding: 27px 32px 32px; }
+    .field + .field { margin-top: 27px; padding-top: 25px; border-top: 1px solid #eee; }
+    label.field-label, .field-title { display: block; margin-bottom: 4px; font-weight: 700; font-size: 14px; }
+    .required { color: var(--red); }
+    .hint { margin: 0 0 11px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    input[type="text"], textarea { width: 100%; border: 1px solid slategray; border-radius: 5px; background: #fff; color: var(--ink); padding: 12px 14px; transition: border-color .15s, box-shadow .15s; }
+    input[type="text"]:focus, textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(189, 25, 21, .15); outline: none; }
+    input::placeholder, textarea::placeholder { color: #707070; }
+    textarea { min-height: 84px; resize: vertical; display: block; }
+    .radio-list { display: grid; gap: 10px; }
+    .radio-option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1px solid #d6d6d6; border-radius: 5px; cursor: pointer; font-size: 13px; transition: border-color .15s, background .15s; }
+    .radio-option:hover { border-color: var(--red); }
+    .radio-option:has(input:checked) { border-color: var(--red); background: var(--soft-red); }
+    .radio-option input { margin: 3px 0 0; accent-color: var(--red); }
+    .radio-option span { flex: 1; }
+    .radio-option strong { display: block; color: var(--ink); font-size: 13px; }
+    .radio-option small { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+    .clear-choice { border: 0; padding: 0; margin-top: 13px; background: transparent; color: var(--red); cursor: pointer; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+    .download-panel { display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-top: 25px; padding: 28px 32px; border-radius: 9px; background: #f3f3f3; }
+    .download-panel h2 { font-size: 21px; }
+    .download-panel p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .download-button { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 5px; padding: 14px 18px; background: var(--red); color: white; font-weight: 700; font-size: 13px; cursor: pointer; }
+    .download-button:hover { background: var(--red-dark); }
+    .bottom-note { margin: 18px 0 0; color: var(--muted); text-align: center; font-size: 12px; }
+    .studio-footer { padding: 18px 20px 30px; text-align: center; color: white; font-size: 13px; }
+    .studio-footer img { display: block; width: 74px; height: 74px; margin: 0 auto 10px; }
+    .studio-footer p { margin: 0; }
+    @media (max-width: 850px) {
+      .layout { display: block; max-width: 720px; margin: 24px 20px 0; padding: 0 24px 35px; }
+      .sidebar { display: none; }
+      .hero { padding-top: 40px; }
+    }
+    @media (max-width: 520px) {
+      .layout { margin: 12px 10px 0; padding: 0 16px 25px; border-radius: 16px; }
+      .hero { padding: 32px 2px 30px; }
+      .hero p { font-size: 15px; }
+      .section-head { padding: 24px 20px 20px; gap: 12px; }
+      .section-body { padding: 23px 20px 25px; }
+      .section-number { width: 32px; height: 32px; }
+      h2 { font-size: 20px; }
+      .download-panel { align-items: stretch; flex-direction: column; padding: 24px 20px; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Survey sections">
+      <div class="sidebar-inner">
+        <div class="eyebrow">Your survey</div>
+        <div class="side-title">Make it yours.</div>
+        <nav class="nav" aria-label="Jump to section">
+          <a href="#book"><span class="nav-num">01</span> Your book</a>
+          <a href="#study-aids"><span class="nav-num">02</span> Textboxes &amp; study aids</a>
+          <a href="#h5p"><span class="nav-num">03</span> H5P solutions</a>
+          <a href="#style"><span class="nav-num">04</span> References &amp; style</a>
+        </nav>
+        <p class="side-foot">Complete one survey per book.<br>Share the downloaded file with your technician.</p>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <div class="eyebrow">Pressbooks author preferences</div>
+        <h1>Book preferences survey</h1>
+        <p>Tell us how you’d like your book to come together. Your preferences will help your technician make the right choices along the way.</p>
+        <div class="intro-note">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div>Fill in the choices that matter to you. Write <strong>Keep current</strong> to retain an existing practice or <strong>Discuss</strong> to flag a choice for follow-up.</div>
+        </div>
+      </div>
+
+      <form id="survey">
+        <section class="section" id="book" aria-labelledby="book-heading">
+          <div class="section-head">
+            <div class="section-number">01</div>
+            <div><h2 id="book-heading">First, your book</h2><p>Let’s make sure this survey finds its way to the right project.</p></div>
+          </div>
+          <div class="section-body">
+            <label class="field-label" for="title">Book title <span class="required" aria-hidden="true">*</span></label>
+            <p class="hint" id="title-hint">This will appear in your completed file and its filename.</p>
+            <input id="title" name="title" type="text" placeholder="Enter the title of your book" aria-describedby="title-hint" required>
+          </div>
+        </section>
+
+        <section class="section" id="study-aids" aria-labelledby="study-heading">
+          <div class="section-head">
+            <div class="section-number">02</div>
+            <div><h2 id="study-heading">Textboxes &amp; study aids</h2><p>The recurring elements that support your readers.</p></div>
+          </div>
+          <div class="section-body">
+            <p class="hint">For each item, tell us whether to include it and where it belongs. If source material is missing, say whether it may be drafted from the book or should be flagged for you.</p>
+            <div class="field">
+              <label class="field-label" for="outcomes">Learning Outcomes</label>
+              <p class="hint">For example, at the start of each chapter.</p>
+              <textarea id="outcomes" name="outcomes" placeholder="Share your preferences..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="terms">Key Terms and glossary</label>
+              <p class="hint">End of each chapter, individual sections, and/or a book glossary.</p>
+              <textarea id="terms" name="terms" placeholder="Share your preferences..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="takeaways">Key Takeaways</label>
+              <p class="hint">Chapter summary, end of individual sections, or both.</p>
+              <textarea id="takeaways" name="takeaways" placeholder="Share your preferences..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="examples">Examples and Exercises</label>
+              <p class="hint">Include placement and whether to leave empty boxes where content is missing.</p>
+              <textarea id="examples" name="examples" placeholder="Share your preferences..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="other">Other recurring boxes or pages</label>
+              <p class="hint">For example, Knowledge Checks or chapter contents lists.</p>
+              <textarea id="other" name="other" placeholder="Share your preferences..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="h5p" aria-labelledby="h5p-heading">
+          <div class="section-head">
+            <div class="section-number">03</div>
+            <div><h2 id="h5p-heading">H5P solutions</h2><p>Decide where answers to interactive exercises should live.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="field-title" id="h5p-label">Choose one for the book’s interactive exercises.</div>
+            <p class="hint">You can leave this unanswered if you’re not sure yet.</p>
+            <div class="radio-list" role="radiogroup" aria-labelledby="h5p-label">
+              <label class="radio-option"><input type="radio" name="h5p" value="0"><span><strong>Keep solutions in the text descriptions</strong><small>Leave answers alongside the exercises.</small></span></label>
+              <label class="radio-option"><input type="radio" name="h5p" value="1"><span><strong>Move solutions to the end of each chapter</strong><small>Use a dedicated page in each chapter.</small></span></label>
+              <label class="radio-option"><input type="radio" name="h5p" value="2"><span><strong>Move solutions to Back Matter</strong><small>Use one dedicated page at the end of the book.</small></span></label>
+            </div>
+            <button type="button" class="clear-choice" id="clear-h5p">Clear selection</button>
+          </div>
+        </section>
+
+        <section class="section" id="style" aria-labelledby="style-heading">
+          <div class="section-head">
+            <div class="section-number">04</div>
+            <div><h2 id="style-heading">References &amp; house style</h2><p>The details that bring consistency to your book.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="field">
+              <label class="field-label" for="references">References</label>
+              <p class="hint">One page per chapter, one page in Back Matter, or keep the existing arrangement.</p>
+              <textarea id="references" name="references" placeholder="Share your preferences..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="audience">Audience and style</label>
+              <p class="hint">Any reading level, spelling, heading, caption, or credit conventions to follow.</p>
+              <textarea id="audience" name="audience" placeholder="Share your preferences..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="exceptions">Exceptions or author review</label>
+              <p class="hint">Any material to handle differently or changes you want to approve.</p>
+              <textarea id="exceptions" name="exceptions" placeholder="Share your preferences..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <div class="download-panel">
+          <div><h2>Ready to share?</h2><p>Download your completed survey and send it to your technician.</p></div>
+          <button class="download-button" type="submit">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download survey
+          </button>
+        </div>
+        <p class="bottom-note">Your answers stay in this browser. Nothing is sent or saved online.</p>
+      </form>
+    </main>
+  </div>
+  <footer class="studio-footer">
+    <img src="images/oer_logo.png" alt="OER Design Studio">
+    <p>Fanshawe OER Design Studio</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('survey');
+    const h5pOptions = [
+      'Keep solutions in the text descriptions.',
+      'Move solutions to a dedicated page at the end of each chapter.',
+      'Move solutions to one dedicated page in Back Matter.'
+    ];
+
+    document.getElementById('clear-h5p').addEventListener('click', () => {
+      const selected = form.querySelector('input[name="h5p"]:checked');
+      if (selected) selected.checked = false;
+    });
+
+    function answer(id) {
+      return document.getElementById(id).value.trim().replace(/\r\n?/g, '\n').replace(/\n/g, '\n  ');
+    }
+
+    function safeFilename(title) {
+      let name = title.replace(/[<>:"/\\|?*\x00-\x1f]/g, '-').replace(/\s+/g, ' ').trim().slice(0, 100).replace(/[. ]+$/g, '');
+      if (!name || /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(name)) name = 'book-' + name;
+      return name + '-preferences-survey.md';
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const titleInput = document.getElementById('title');
+      const title = titleInput.value.trim();
+      if (!title) {
+        titleInput.setCustomValidity('Please enter a book title.');
+        titleInput.reportValidity();
+        return;
+      }
+      const selected = form.querySelector('input[name="h5p"]:checked');
+      const titleMarkdown = title.replace(/([\\`*_{}\[\]<>])/g, '\\$1');
+      const markdown = [
+        '# Pressbooks author preferences',
+        '',
+        '**Book title:** ' + titleMarkdown,
+        '',
+        'Complete one copy per book. Fill in the choices that matter to you and give the file to your technician. Write **Keep current** to retain the book’s existing practice or **Discuss** to flag a choice for follow-up.',
+        '',
+        '## Textboxes and study aids',
+        '',
+        'For each item, tell us whether to include it and where it belongs. If source material is missing, say whether it may be drafted from the book or should be flagged for you.',
+        '',
+        '- **Learning Outcomes** (for example, at the start of each chapter): ' + answer('outcomes'),
+        '- **Key Terms and glossary** (end of each chapter, individual sections, and/or a book glossary): ' + answer('terms'),
+        '- **Key Takeaways** (chapter summary, end of individual sections, or both): ' + answer('takeaways'),
+        '- **Examples and Exercises** (include placement and whether to leave empty boxes where content is missing): ' + answer('examples'),
+        '- **Other recurring boxes or pages** (for example, Knowledge Checks or chapter contents lists): ' + answer('other'),
+        '',
+        '## H5P solutions',
+        '',
+        'Choose one for the book’s interactive exercises.',
+        '',
+        ...h5pOptions.map((option, index) => '- [' + (selected && selected.value === String(index) ? 'x' : ' ') + '] ' + option),
+        '',
+        '## References and house style',
+        '',
+        '- **References** (one page per chapter, one page in Back Matter, or keep the existing arrangement): ' + answer('references'),
+        '- **Audience and style** (any reading level, spelling, heading, caption, or credit conventions to follow): ' + answer('audience'),
+        '- **Exceptions or author review** (any material to handle differently or changes you want to approve): ' + answer('exceptions'),
+        ''
+      ].join('\n');
+      const url = URL.createObjectURL(new Blob([markdown], { type: 'text/markdown;charset=utf-8' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = safeFilename(title);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+
+    document.getElementById('title').addEventListener('input', (event) => {
+      event.currentTarget.setCustomValidity('');
+    });
+  </script>
+</body>
+</html>
