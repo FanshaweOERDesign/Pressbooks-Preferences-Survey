@@ -11,7 +11,7 @@ For each item, tell us how to handle it. For exercises and examples, specify wha
 - **Key Takeaways** (chapter summary, end of individual sections, or both): [default = chapter summary]
 - **Exercises** (create boxes only for existing H5P activities, create an empty box where no exercise exists in a section, or generate exercise content in a new box where no box exists): [default=create boxes only for existing H5P activities]
 - **Chapter-level exercises** (apply the exercise preference to section-level exercises only or to both section-level and chapter-level exercises): [not specified]
-- **Examples** (create an empty Examples box where none exists, generate example content in a new box where none exists, or do not create Examples boxes): [not specified]
+- **Examples** (create an empty Examples box where none exists, generate example content in a new box where none exists, or do not create Examples boxes): [default=do not create Examples boxes]
 - **Other recurring boxes or pages** (for example, Knowledge Checks or chapter contents lists):
 
 ## H5P solutions
