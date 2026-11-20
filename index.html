@@ -186,7 +186,6 @@
               <label class="field-label subfield-label" for="exercise-scope">Chapter-level exercises</label>
               <p class="hint">Choose whether exercises stay in sections, move to an end-of-chapter page, or appear in both places.</p>
               <select id="exercise-scope" name="exercise-scope">
-                <option value="">Select a chapter-level preference (optional)</option>
                 <option value="Keep exercises in sections only; do not create a dedicated end-of-chapter exercises page">Keep exercises in sections only; do not create a dedicated end-of-chapter exercises page</option>
                 <option value="Create a dedicated end-of-chapter exercises page only; gather H5P and other activities from sections there">Create a dedicated end-of-chapter exercises page only; gather H5P and other activities from sections there</option>
                 <option value="Keep exercises in sections and include different exercises on a dedicated end-of-chapter exercises page">Keep exercises in sections and include different exercises on a dedicated end-of-chapter exercises page</option>
@@ -319,7 +318,7 @@
         '- **Learning Outcomes** (for example, at the start of each chapter): ' + answer('outcomes'),
         '- **Key Terms and glossary** (end of each chapter, individual sections, and/or a book glossary): ' + answer('terms'),
         '- **Key Takeaways** (chapter summary, end of individual sections, or both): ' + answer('takeaways'),
-        '- **Exercises**: ' + answer('exercises') + '. Placement: ' + (answer('exercise-scope') || 'Not specified') + '.',
+        '- **Exercises**: ' + answer('exercises') + '. Placement: ' + (answer('exercise-scope') || 'Not specified') + '. NOTE: do NOT remove existing end-of-chapter exercise pages unless specifically instructed.',
         '- **Examples**: ' + (answer('examples') || 'No preference selected') + '.',
         '- **Other recurring boxes or pages** (for example, Knowledge Checks or chapter contents lists): ' + answer('other'),
         '',
