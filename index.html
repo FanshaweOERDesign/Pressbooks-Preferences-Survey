@@ -137,7 +137,7 @@
             <div><h2 id="study-heading">Textboxes &amp; study aids</h2><p>The recurring elements that support your readers.</p></div>
           </div>
           <div class="section-body">
-            <p class="hint">For each item, tell us whether to include it and where it belongs. If source material is missing, say whether it may be drafted from the book or should be flagged for you.</p>
+            <p class="hint">Choose how to handle each recurring item. For exercises and examples, specify what to do when a section has no existing exercise or box.</p>
             <div class="field">
               <label class="field-label" for="outcomes">Learning Outcomes</label>
               <p class="hint">Default: at the start of each chapter.</p>
@@ -176,22 +176,29 @@
               </select>
             </div>
             <div class="field">
-              <label class="field-label" for="examples">Examples and Exercises</label>
-              <p class="hint">Default placement: surrounding each H5P activity.</p>
-              <select id="examples" name="examples">
-                <option value="Surround each H5P activity" selected>Surround each H5P activity</option>
-                <option value="Place with related content">Place with related content</option>
-                <option value="At the end of each chapter">At the end of each chapter</option>
-                <option value="Do not include">Do not include</option>
-                <option value="Keep current arrangement">Keep current arrangement</option>
-                <option value="Discuss with technician">Discuss with technician</option>
+              <label class="field-label" for="exercises">Exercises</label>
+              <p class="hint">Default: create exercise boxes only for existing H5P activities.</p>
+              <select id="exercises" name="exercises">
+                <option value="Create exercise boxes only for existing H5P activities" selected>Create exercise boxes only for existing H5P activities</option>
+                <option value="Create an empty exercise box in sections with no existing exercise">Create an empty exercise box in sections with no existing exercise</option>
+                <option value="Generate exercise content inside a new box in sections with no exercise box">Generate exercise content inside a new box in sections with no exercise box</option>
               </select>
-              <label class="field-label subfield-label" for="examples-missing">When content is missing</label>
-              <select id="examples-missing" name="examples-missing">
-                <option value="">Select an option (optional)</option>
-                <option value="Leave empty boxes where content is missing">Leave empty boxes where content is missing</option>
-                <option value="Do not leave empty boxes where content is missing">Do not leave empty boxes where content is missing</option>
-                <option value="Discuss with technician">Discuss with technician</option>
+              <label class="field-label subfield-label" for="exercise-scope">Chapter-level exercises</label>
+              <p class="hint">Choose whether the exercise preference above also applies to chapter-level exercises when present.</p>
+              <select id="exercise-scope" name="exercise-scope">
+                <option value="">Select a scope (optional)</option>
+                <option value="Apply the exercise preference to section-level and chapter-level exercises">Apply the preference to section-level and chapter-level exercises</option>
+                <option value="Apply the exercise preference to section-level exercises only">Apply the preference to section-level exercises only</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="examples">Examples</label>
+              <p class="hint">Choose what to do where no Examples box exists. There is no preset default.</p>
+              <select id="examples" name="examples">
+                <option value="">Select how to handle Examples</option>
+                <option value="Create an empty Examples box where none exists">Create an empty Examples box where none exists</option>
+                <option value="Generate example content in a new Examples box where none exists">Generate example content in a new Examples box where none exists</option>
+                <option value="Do not create Examples boxes">Do not create Examples boxes</option>
               </select>
             </div>
             <div class="field">
@@ -312,7 +319,8 @@
         '- **Learning Outcomes** (for example, at the start of each chapter): ' + answer('outcomes'),
         '- **Key Terms and glossary** (end of each chapter, individual sections, and/or a book glossary): ' + answer('terms'),
         '- **Key Takeaways** (chapter summary, end of individual sections, or both): ' + answer('takeaways'),
-        '- **Examples and Exercises** (placement and missing content): Placement: ' + answer('examples') + (answer('examples-missing') ? '; ' + answer('examples-missing') : ''),
+        '- **Exercises**: ' + answer('exercises') + '. Chapter-level scope: ' + (answer('exercise-scope') || 'Not specified') + '.',
+        '- **Examples**: ' + (answer('examples') || 'No preference selected') + '.',
         '- **Other recurring boxes or pages** (for example, Knowledge Checks or chapter contents lists): ' + answer('other'),
         '',
         '## H5P solutions',
